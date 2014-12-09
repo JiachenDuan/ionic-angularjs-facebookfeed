@@ -1,0 +1,12 @@
+/* Empty. Add your own CSS if you like */
+.discovery-item {
+    height: 200px;
+}
+
+.head-img {
+    width: 48px;
+    height: 48px;
+    float: left;
+    margin-top: 0px;
+    margin-right: 8px;
+}
