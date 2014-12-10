@@ -1,14 +1,23 @@
 <ion-view title="Discovery">
+
+
+
     <ion-content >
         <ion-refresher
                 pulling-text="Pull to refresh..."
                 on-refresh="doRefresh()">
         </ion-refresher>
       <ion-list>
+          <h3 class="title">Ionic Infinite Scroll with {{feeds.length}} feeds</h3>
           <ion-item ng-repeat="feed in feeds" type="item-text-wrap" class="discovery-item">
               <img class="head-img"
                    ng-src="img/headimg.jpg"> {{feed.name}}
           </ion-item>
       </ion-list>
+        <ion-infinite-scroll
+                if="!noMoreItemsAvailable"
+                on-infinite="loadMore()"
+                distance="2%">
+        </ion-infinite-scroll>
     </ion-content>
 </ion-view>
