@@ -3,39 +3,57 @@ angular.module('starter.controllers', [])
     .controller('DashCtrl', function ($scope) {
     })
 
-    .controller('DiscoveryCtrl', function ($scope, Discovery,$http,$ionicLoading) {
+    .controller('DiscoveryCtrl', function ($scope, Discovery, $http, $ionicLoading) {
         $scope.feeds = [];
-            $scope.loadedFeeds = Discovery.all();
+        $scope.loadedFeeds = Discovery.all();
         $scope.noMoreItemsAvailable = false;
-        $scope.loadMore = function() {
-            var numOffeeds=$scope.feeds.length;
 
-                $scope.feeds.push($scope.loadedFeeds[numOffeeds]);
+        $scope.loadMore = function (NumOfFeedToLoad) {
+           //NumOfFeedToLoad decide how many feed load per loadMore called
+           for(var i=0;i<NumOfFeedToLoad;i++){
+               var numOffeeds = $scope.feeds.length;
+               $scope.feeds.push($scope.loadedFeeds[numOffeeds]);
+           }
 
-            if($scope.feeds.length == 100){
+            //Stop loadMore while no more data inside loadedFeeds
+            if ($scope.feeds.length == $scope.loadedFeeds) {
                 $scope.noMoreItemsAvailable = true;
             }
 
             $scope.$broadcast('scroll.infiniteScrollComplete');
 
         }
-        $scope.showloading = function() {
-            $ionicLoading.show({
-                template: 'Loading...'
-            });
+
+        $scope.showloading = function (durationtime) {
+
+            if (!durationtime) {
+
+                $ionicLoading.show({
+                    template: 'Loading...',
+                    noBackdrop: true
+                });
+            } else {
+
+                $ionicLoading.show({
+                    template: 'Loading...',
+                    noBackdrop: true,
+                    duration: durationtime
+                });
+            }
+
         };
-        $scope.hideloading = function(){
+        $scope.hideloading = function () {
             $ionicLoading.hide();
         };
-        $scope.doRefresh = function() {
-         //  $scope.showloading()
+        $scope.doRefresh = function () {
+            $scope.showloading()
             $http.get('/new-items')
-                .success(function(newItems) {
+                .success(function (newItems) {
                     $scope.feeds = newItems;
                 })
-                .finally(function() {
+                .finally(function () {
                     // Stop the ion-refresher from spinning
-                   // $scope.hideloading()
+                    $scope.hideloading()
                     $scope.$broadcast('scroll.refreshComplete');
                 });
         };
