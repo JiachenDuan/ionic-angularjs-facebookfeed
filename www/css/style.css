@@ -1,6 +1,7 @@
 /* Empty. Add your own CSS if you like */
 .discovery-item {
-    height: 200px;
+    /*height: 100%;*/
+
 }
 
 .head-img {
@@ -9,4 +10,8 @@
     float: left;
     margin-top: 0px;
     margin-right: 8px;
+}
+
+.feed-content-img {
+    width: 100px;
 }

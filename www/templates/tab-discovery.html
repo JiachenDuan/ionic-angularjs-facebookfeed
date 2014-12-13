@@ -1,4 +1,4 @@
-<ion-view title="Discovery">
+<ion-view title="Discovery feeds: {{feeds.length}}">
 
 
 
@@ -7,16 +7,52 @@
                 pulling-text="Pull to refresh..."
                 on-refresh="doRefresh()">
         </ion-refresher>
-      <ion-list>
-          <h3 class="title">Ionic Infinite Scroll with {{feeds.length}} feeds</h3>
-          <ion-item ng-repeat="feed in feeds" type="item-text-wrap" class="discovery-item">
-              <img class="head-img"
-                   ng-src="img/headimg.jpg"> {{feed.name}}
+      <ion-list >
+
+          <ion-item class="discovery-item" ng-repeat="feed in feeds" type="item-text-wrap" >
+
+
+                  <div class="item item-avatar">
+                      <img class="head-img" ng-src="img/headimg.jpg">
+                      <h3>{{feed.name}}</h3>
+                      <p>Movie night this friday?</p>
+                  </div>
+
+                  <div class="item item-body">
+                      <img class="feed-content-img" ng-src="img/headimg.jpg">
+                      <p>
+                          This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
+                          the content is from a card-body consisting of an image and paragraph text. The footer
+                          consists of tabs, icons aligned left, within the card-footer.
+                      </p>
+                      <p>
+                          <a href="#" class="subdued">1 Like</a>
+                          <a href="#" class="subdued">5 Comments</a>
+                      </p>
+                  </div>
+
+                  <div class="item tabs tabs-secondary tabs-icon-left">
+                      <a class="tab-item" href="#">
+                          <i class="icon ion-thumbsup"></i>
+                          Like
+                      </a>
+                      <a class="tab-item" href="#">
+                          <i class="icon ion-chatbox"></i>
+                          Comment
+                      </a>
+                      <a class="tab-item" href="#">
+                          <i class="icon ion-share"></i>
+                          Share
+                      </a>
+                  </div>
+
+
           </ion-item>
       </ion-list>
         <ion-infinite-scroll
                 if="!noMoreItemsAvailable"
                 on-infinite="loadMore(10)"
+                icon="ion-loading-c"
                 distance="1%">
         </ion-infinite-scroll>
     </ion-content>
